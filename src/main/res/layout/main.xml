@@ -38,7 +38,7 @@
         android:id="@+id/syncButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/export"
+        android:src="@drawable/dropbox"
         android:layout_weight="1"/>
   </LinearLayout>
 
