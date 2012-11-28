@@ -5,7 +5,7 @@ import AndroidKeys._
 
 object General {
   val settings = Defaults.defaultSettings ++ Seq (
-    name := "nexus7-wd-logger",
+    name := "logger",
     version := "0.0.3-android",
     versionCode := 3,
     scalaVersion := "2.9.2",
