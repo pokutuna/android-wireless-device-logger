@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+    <ImageButton
+        android:id="@+id/logToggle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/play"
+        android:layout_weight="1"/>
+    <ImageButton
+        android:id="@+id/logClear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/paintroller"
+        android:layout_weight="1"/>
+
+    <ImageButton
+        android:id="@+id/btButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bluetooth"
+        android:layout_weight="1"/>
+    <ImageButton
+        android:id="@+id/wifiButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wifi"
+        android:layout_weight="1"/>
+    <ImageButton
+        android:id="@+id/syncButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/export"
+        android:layout_weight="1"/>
+  </LinearLayout>
+
+  <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5mm"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="@android:color/white"
+            android:text="@string/btlogLabel"/>
+
+  <include layout="@layout/divider" />
+
+  <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="0dip"
+      android:fastScrollEnabled="true"
+      android:layout_weight="2">
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/btlog"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"/>
+  </ScrollView>
+
+  <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2mm"
+            android:paddingLeft="5mm"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:background="@android:color/white"
+            android:text="@string/wflogLabel"/>
+
+  <include layout="@layout/divider" />
+
+  <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="0dip"
+      android:fastScrollEnabled="true"
+      android:layout_weight="2">
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wflog"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"/>
+  </ScrollView>
+
+
+  <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2mm"
+          android:paddingLeft="5mm"
+          android:textStyle="bold"
+          android:textColor="@android:color/black"
+          android:background="@android:color/white"
+          android:text="@string/syslogLabel"/>
+  <include layout="@layout/divider" />
+
+  <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="0dip"
+      android:fastScrollEnabled="true"
+      android:layout_weight="1">
+  <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/syslog"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+  </ScrollView>
+
+</LinearLayout>
