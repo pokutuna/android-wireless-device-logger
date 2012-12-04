@@ -112,16 +112,10 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
   def checkBluetoothAction() {
-    val messageId = BtScanner.checkStatus match {
-      case s if s == BtScanner.Status.Working         => R.string.checkBtWorking
-      case s if s == BtScanner.Status.NotEnabled      => R.string.checkBtNotEnabled
-      case s if s == BtScanner.Status.NotDiscoverable => R.string.checkBtNotDiscoverable
-    }
     openDialogSimply(
       R.string.checkBtTitle,
-      messageId,
-      () => BtScanner.openConfig(this)
-    )
+      btStatusToStringId(BtScanner.checkStatus),
+      () => openBluetoothConfig)
   }
 
   def checkWiFi() {
@@ -132,14 +126,10 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
   def checkWiFiAction() {
-    val messageId = WifiScanner.checkStatus(this) match {
-      case s if s == WifiScanner.Status.Working         => R.string.checkWfWorking
-      case s if s == WifiScanner.Status.NotEnabled      => R.string.checkWfNotEnabled
-    }
     openDialogSimply(
       R.string.checkWfTitle,
-      messageId,
-      () => WifiScanner.openConfig(this)
+      wfStatusToStringId(WifiScanner.checkStatus(this)),
+      () => openWifiConfig
     )
   }
 
@@ -218,6 +208,27 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
       override def onClick(dialog: DialogInterface, which: Int) {}
     })
     alert.show()
+  }
+
+  def openBluetoothConfig = {
+    val intent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS)
+    startActivity(intent)
+  }
+
+  def btStatusToStringId(status: BtScanner.Status.Value): Int = status match {
+    case s if s == BtScanner.Status.Working         => R.string.checkBtWorking
+    case s if s == BtScanner.Status.NotEnabled      => R.string.checkBtNotEnabled
+    case s if s == BtScanner.Status.NotDiscoverable => R.string.checkBtNotDiscoverable
+  }
+
+  def openWifiConfig = {
+    val intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS)
+    startActivity(intent);
+  }
+
+  def wfStatusToStringId(status: WifiScanner.Status.Value): Int = status match {
+    case s if s == WifiScanner.Status.Working         => R.string.checkWfWorking
+    case s if s == WifiScanner.Status.NotEnabled      => R.string.checkWfNotEnabled
   }
 
 }

@@ -75,9 +75,4 @@ object BtScanner {
     return Status.Working
   }
 
-  def openConfig(from: Activity) = {
-    val intent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS)
-    from.startActivity(intent);
-  }
-
 }

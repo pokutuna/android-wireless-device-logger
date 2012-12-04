@@ -45,8 +45,4 @@ object WifiScanner {
     return Status.Working
   }
 
-  def openConfig(from: Activity) = {
-    val intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS)
-    from.startActivity(intent);
-  }
 }
