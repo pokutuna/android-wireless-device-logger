@@ -9,20 +9,24 @@ import _root_.android.widget._
 import _root_.android.graphics._
 import _root_.android.os._
 import _root_.android.util.Log
+import _root_.android.net.Uri
 import _root_.android.webkit.WebView
 import java.lang.System
 
 class MainActivity extends Activity with TypedActivity with OnClickListener {
 
   // view
-  lazy val btlog  = findView(TR.btlog)
-  lazy val wflog  = findView(TR.wflog)
-  lazy val syslog = findView(TR.syslog)
   lazy val logToggle = findView(TR.logToggle)
   lazy val clearBtn = findView(TR.logClear)
   lazy val btBtn = findView(TR.btButton)
   lazy val wfBtn = findView(TR.wifiButton)
   lazy val syncBtn = findView(TR.syncButton)
+
+  lazy val syslog = findView(TR.syslog)
+  lazy val btlog  = findView(TR.btlog)
+  lazy val wflog  = findView(TR.wflog)
+  lazy val btfileBtn = findView(TR.openBtLogFile)
+  lazy val wffileBtn = findView(TR.openWfLogFile)
 
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
@@ -36,18 +40,6 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     checkWiFi()
 
     syslog.append(EventLogProducer.getLoggerVersionLog + "\n")
-  }
-
-  override def onCreateOptionsMenu(menu: Menu): Boolean = {
-    menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.info))
-    menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.deauthorize))
-    super.onCreateOptionsMenu(menu)
-  }
-
-  override def onOptionsItemSelected(item: MenuItem): Boolean = item.getItemId match {
-    case id if id == 1 => openInfoDialog(); true
-    case id if id == 2 => deauthorizeDropbox(); true
-    case _ => false
   }
 
   override def onResume() {
@@ -73,7 +65,8 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
   def initView() {
-    List(logToggle, clearBtn, btBtn, wfBtn, syncBtn).foreach(_.setOnClickListener(this))
+    List(logToggle, clearBtn, btBtn, wfBtn, syncBtn, btfileBtn, wffileBtn)
+      .foreach(_.setOnClickListener(this))
   }
 
   override def onClick(view: View) {
@@ -83,6 +76,8 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
       case id if id == btBtn.getId     => checkBluetoothAction()
       case id if id == wfBtn.getId     => checkWiFiAction()
       case id if id == syncBtn.getId   => syncLogdata()
+      case id if id == btfileBtn.getId => openBtLogFileIntent()
+      case id if id == wffileBtn.getId => openWfLogFileIntent()
       case _ => Util.log(this, "unexpected click: " + view.toString)
     }
   }
@@ -150,6 +145,22 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
       case Some(token) => Dropbox.startSync()
       case None => Dropbox.Api.getSession().startAuthentication(MainActivity.this);
     }
+  }
+
+  def openBtLogFileIntent() = {
+    openFileIntent(LogFileWriter.getLogPath(LogFileWriter.today, DeviceType.Bluetooth).getAbsolutePath)
+  }
+
+  def openWfLogFileIntent() = {
+    openFileIntent(LogFileWriter.getLogPath(LogFileWriter.today, DeviceType.WiFi).getAbsolutePath)
+  }
+
+  def openFileIntent(filepath: String) = {
+    val intent = new Intent()
+    intent
+      .setAction(Intent.ACTION_VIEW)
+      .setDataAndType(Uri.parse("file://" + filepath), "text/tab-separated-values")
+    startActivity(intent)
   }
 
   def updateFromService(intent: Intent) = intent.getIntExtra("type", -1) match {
@@ -221,7 +232,19 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
 
-  // menu action
+  // menu
+  override def onCreateOptionsMenu(menu: Menu): Boolean = {
+    menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.info))
+    menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.deauthorize))
+    super.onCreateOptionsMenu(menu)
+  }
+
+  override def onOptionsItemSelected(item: MenuItem): Boolean = item.getItemId match {
+    case id if id == 1 => openInfoDialog(); true
+    case id if id == 2 => deauthorizeDropbox(); true
+    case _ => false
+  }
+
   def openInfoDialog() {
     val dialog = new AlertDialog.Builder(this)
     val webView = new WebView(this)
