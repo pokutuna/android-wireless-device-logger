@@ -28,12 +28,8 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     setContentView(R.layout.main)
 
     initView()
-
-    LogService.start(this)
-    Alarm.startAlarm(this)
     registerUpdateReceiver()
-    logToggle.setImageResource(R.drawable.stop)
-    logToggle.setState(ViewState.Active)
+    startLogging()
 
     checkBluetooth()
     checkWiFi()
@@ -79,21 +75,24 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
   def toggleLogging() {
-    if (LogService.isRunningService(this)) {
-      Alarm.stopAlarm(this)
-      LogService.stop(this)
-      logToggle.setImageResource(R.drawable.play)
-      logToggle.setState(ViewState.Default)
-    } else {
-      Alarm.startAlarm(this)
-      LogService.start(this)
-      logToggle.setImageResource(R.drawable.stop)
-      logToggle.setState(ViewState.Active)
-    }
+    if (LogService.isRunningService(this)) stopLogging() else startLogging()
+  }
+
+  def startLogging() {
+    Alarm.startAlarm(this)
+    LogService.start(this)
+    logToggle.setImageResource(R.drawable.stop)
+    logToggle.getBackground.setColorFilter(Color.BLUE, PorterDuff.Mode.DARKEN);
+  }
+
+  def stopLogging() {
+    Alarm.stopAlarm(this)
+    LogService.stop(this)
+    logToggle.setImageResource(R.drawable.play)
+    logToggle.getBackground.setColorFilter(null);
   }
 
   def clearLog() {
-    val alert = new AlertDialog.Builder(this)
     openDialogSimply(
       R.string.clearDialogTitle,
       R.string.clearDialogMessage,
@@ -106,8 +105,8 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
 
   def checkBluetooth() {
     BtScanner.checkStatus match {
-      case s if s == BtScanner.Status.Working => btBtn.setState(ViewState.Working)
-      case _ => btBtn.setState(ViewState.Error)
+      case s if s == BtScanner.Status.Working => btBtn.hideErrorBadge()
+      case _                                  => btBtn.showErrorBadge()
     }
   }
 
@@ -120,8 +119,8 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
 
   def checkWiFi() {
     WifiScanner.checkStatus(this) match {
-      case s if s == WifiScanner.Status.Working => wfBtn.setState(ViewState.Working)
-      case _ => wfBtn.setState(ViewState.Error)
+      case s if s == WifiScanner.Status.Working => wfBtn.hideErrorBadge()
+      case _                                    => wfBtn.showErrorBadge()
     }
   }
 
@@ -171,29 +170,6 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
       registerReceiver(updateReceiver, filter)
     }
   }
-
-  // view util
-  object ViewState extends Enumeration {
-      val Active, Working, Error, Default = Value
-  }
-
-  // TODO
-  case class MyButton(button: ImageButton) {
-    def setState(state: ViewState.Value) = state match {
-      case ViewState.Active   =>
-        button.getBackground.setColorFilter(Color.BLUE, PorterDuff.Mode.DARKEN);
-      case ViewState.Working  =>
-        button.getBackground.setColorFilter(Color.GREEN, PorterDuff.Mode.DARKEN);
-      case ViewState.Error    =>
-        button.getBackground.setColorFilter(Color.RED, PorterDuff.Mode.DARKEN);
-      case ViewState.Default  =>
-        button.getBackground.setColorFilter(null);
-      case _                  => Util.log(this, "unknown style")
-    }
-  }
-
-  implicit def buttonToMyButton(button: ImageButton): MyButton = MyButton(button)
-
 
   def openDialogSimply(titleId: Int, messageId: Int, yesAction: () => Unit) = {
     val alert = new AlertDialog.Builder(this)

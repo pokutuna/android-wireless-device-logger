@@ -22,13 +22,13 @@
         android:src="@drawable/paintroller"
         android:layout_weight="1"/>
 
-    <ImageButton
+    <com.pokutuna.n7logger.view.ImageButtonWithBadge
         android:id="@+id/btButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/bluetooth"
         android:layout_weight="1"/>
-    <ImageButton
+    <com.pokutuna.n7logger.view.ImageButtonWithBadge
         android:id="@+id/wifiButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
