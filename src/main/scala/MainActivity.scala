@@ -9,6 +9,7 @@ import _root_.android.widget._
 import _root_.android.graphics._
 import _root_.android.os._
 import _root_.android.util.Log
+import _root_.android.webkit.WebView
 import java.lang.System
 
 class MainActivity extends Activity with TypedActivity with OnClickListener {
@@ -35,6 +36,18 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     checkWiFi()
 
     syslog.append(EventLogProducer.getLoggerVersionLog + "\n")
+  }
+
+  override def onCreateOptionsMenu(menu: Menu): Boolean = {
+    menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.info))
+    menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.deauthorize))
+    super.onCreateOptionsMenu(menu)
+  }
+
+  override def onOptionsItemSelected(item: MenuItem): Boolean = item.getItemId match {
+    case id if id == 1 => openInfoDialog(); true
+    case id if id == 2 => deauthorizeDropbox(); true
+    case _ => false
   }
 
   override def onResume() {
@@ -93,7 +106,7 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
   def clearLog() {
-    openDialogSimply(
+    openYNDialogSimply(
       R.string.clearDialogTitle,
       R.string.clearDialogMessage,
       () => {
@@ -111,7 +124,7 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
   def checkBluetoothAction() {
-    openDialogSimply(
+    openYNDialogSimply(
       R.string.checkBtTitle,
       btStatusToStringId(BtScanner.checkStatus),
       () => openBluetoothConfig)
@@ -125,7 +138,7 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   }
 
   def checkWiFiAction() {
-    openDialogSimply(
+    openYNDialogSimply(
       R.string.checkWfTitle,
       wfStatusToStringId(WifiScanner.checkStatus(this)),
       () => openWifiConfig
@@ -171,7 +184,7 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     }
   }
 
-  def openDialogSimply(titleId: Int, messageId: Int, yesAction: () => Unit) = {
+  def openYNDialogSimply(titleId: Int, messageId: Int, yesAction: () => Unit) = {
     val alert = new AlertDialog.Builder(this)
     alert.setTitle(getString(titleId))
     alert.setMessage(getString(messageId))
@@ -205,6 +218,24 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   def wfStatusToStringId(status: WifiScanner.Status.Value): Int = status match {
     case s if s == WifiScanner.Status.Working         => R.string.checkWfWorking
     case s if s == WifiScanner.Status.NotEnabled      => R.string.checkWfNotEnabled
+  }
+
+
+  // menu action
+  def openInfoDialog() {
+    val dialog = new AlertDialog.Builder(this)
+    val webView = new WebView(this)
+    webView.loadData(getString(R.string.infoHtml), "text/html", "UTF-8")
+    dialog.setView(webView)
+    dialog.setPositiveButton("close", new DialogInterface.OnClickListener() {
+      override def onClick(dialog: DialogInterface, whitch: Int) = dialog.dismiss()
+    })
+    dialog.show()
+  }
+
+  def deauthorizeDropbox() {
+    Dropbox.dropDropboxToken()
+    ToastUtil.say(getString(R.string.deauthorizeComplete))
   }
 
 }

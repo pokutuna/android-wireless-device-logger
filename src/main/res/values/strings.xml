@@ -31,4 +31,24 @@
   <string name="checkWfTitle">WiFiステータス</string>
   <string name="checkWfWorking">正常に動作しているようです。\n設定を開きますか？</string>
   <string name="checkWfNotEnabled">WifiがOFFになっているようです。\nONでないとスキャンできません。設定を開きますか？</string>
+
+
+  <string name="info">app info</string>
+  <string name="infoHtml"><![CDATA[
+    <html lang="ja">
+      <body>
+        <h1>android-wireless-device-logger</h1>
+        <a href="http://pokutuna.github.com/android-wireless-device-logger/">webpage</a>
+        <br />
+        <h2>using libraries</h2>
+        <ul>
+          <li><a href="https://www.dropbox.com/developers/reference/sdk">Dropbox Android SDK</a></li>
+          <li><a href="https://github.com/jgilfelt/android-viewbadger">jgilfelt / android-viewbadger</a></li>
+        </ul>
+      </body>
+    </html>
+  ]]></string>
+
+  <string name="deauthorize">deauthorize Dropbox</string>
+  <string name="deauthorizeComplete">Dropboxへのアクセス権限を削除しました。</string>
 </resources>
