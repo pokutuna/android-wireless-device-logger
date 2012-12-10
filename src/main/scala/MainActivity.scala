@@ -23,8 +23,11 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   lazy val syncBtn = findView(TR.syncButton)
 
   lazy val syslog = findView(TR.syslog)
+  lazy val sysScl = findView(TR.sysScroll)
   lazy val btlog  = findView(TR.btlog)
+  lazy val btScl  = findView(TR.btScroll)
   lazy val wflog  = findView(TR.wflog)
+  lazy val wfScl  = findView(TR.wfScroll)
   lazy val btfileBtn = findView(TR.openBtLogFile)
   lazy val wffileBtn = findView(TR.openWfLogFile)
 
@@ -165,11 +168,17 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
 
   def updateFromService(intent: Intent) = intent.getIntExtra("type", -1) match {
     case t if t == DeviceType.Bluetooth.id =>
-      btlog.setText(intent.getStringExtra("log") + "\n" + btlog.getText)
+      btScl.scrollIfFullScrolled({
+        btlog.append(intent.getStringExtra("log") + "\n")
+      })
     case t if t == DeviceType.WiFi.id      =>
-      wflog.setText(intent.getStringExtra("log") + "\n" + wflog.getText)
+      wfScl.scrollIfFullScrolled({
+        wflog.append(intent.getStringExtra("log") + "\n")
+      })
     case t if t == DeviceType.Other.id     =>
-      syslog.setText(intent.getStringExtra("log") + "\n" + syslog.getText)
+      sysScl.scrollIfFullScrolled({
+        syslog.append(intent.getStringExtra("log") + "\n")
+      })
     case _ =>
   }
 

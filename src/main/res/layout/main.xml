@@ -55,7 +55,8 @@
 
   <include layout="@layout/divider" />
 
-  <ScrollView
+  <com.pokutuna.n7logger.view.AutoScrollView
+      android:id="@+id/sysScroll"
       android:layout_width="fill_parent"
       android:layout_height="0dip"
       android:fastScrollEnabled="true"
@@ -64,7 +65,7 @@
             android:id="@+id/syslog"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
-  </ScrollView>
+  </com.pokutuna.n7logger.view.AutoScrollView>
   <!-- syslog end -->
 
   <!-- btlog start -->
@@ -90,7 +91,8 @@
 
   <include layout="@layout/divider" />
 
-  <ScrollView
+  <com.pokutuna.n7logger.view.AutoScrollView
+      android:id="@+id/btScroll"
       android:layout_width="fill_parent"
       android:layout_height="0dip"
       android:fastScrollEnabled="true"
@@ -99,7 +101,7 @@
               android:id="@+id/btlog"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"/>
-  </ScrollView>
+  </com.pokutuna.n7logger.view.AutoScrollView>
   <!-- btlog end -->
 
   <!-- wifilog start -->
@@ -125,7 +127,8 @@
 
   <include layout="@layout/divider" />
 
-  <ScrollView
+  <com.pokutuna.n7logger.view.AutoScrollView
+      android:id="@+id/wfScroll"
       android:layout_width="fill_parent"
       android:layout_height="0dip"
       android:fastScrollEnabled="true"
@@ -134,7 +137,7 @@
               android:id="@+id/wflog"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"/>
-  </ScrollView>
+  </com.pokutuna.n7logger.view.AutoScrollView>
   <!-- wifilog end -->
 
 </LinearLayout>
