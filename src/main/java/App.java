@@ -2,6 +2,7 @@ package com.pokutuna.n7logger;
 
 import android.app.*;
 import android.content.*;
+import android.content.pm.*;
 
 public class App extends Application {
 
@@ -13,7 +14,7 @@ public class App extends Application {
     appContext = this;
   }
 
-  public static Context getContext(){
+  public static Context getContext() {
     return appContext;
   }
 

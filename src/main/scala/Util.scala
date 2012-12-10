@@ -5,10 +5,10 @@ import java.util.Date
 
 object Util {
 
-  val logTag = "N7Logger"
-
   def log(from: Object, msg: String): Unit = {
-    Log.d(logTag, List(DateFormatter.formatTime(new Date()), "[" + getClassName(from) + "]", msg).mkString(" "))
+    if (Logger.isDebugging) {
+      Log.d(Logger.logTag, List(DateFormatter.formatTime(new Date()),"[" + getClassName(from) + "]", msg).mkString(" "))
+    }
   }
 
   def getClassName(obj: Object): String = obj.getClass.getSimpleName

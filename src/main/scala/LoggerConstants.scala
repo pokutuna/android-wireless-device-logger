@@ -4,10 +4,21 @@ object Logger {
   import _root_.android.content.pm._
 
   val packageName = "com.pokutuna.n7logger"
-  val versionName = {
-    val pm = App.getContext.getPackageManager
-    pm.getPackageInfo(packageName, PackageManager.GET_META_DATA).versionName
+
+  val logTag = "N7Logger"
+
+  lazy val packageManager = App.getContext.getPackageManager
+
+  lazy val appInfo = packageManager.getApplicationInfo(App.getContext.getPackageName, 0)
+
+  lazy val versionName =
+    packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA).versionName
+
+  lazy val isDebugging: Boolean = {
+    val info = appInfo
+    (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) == ApplicationInfo.FLAG_DEBUGGABLE
   }
+
 }
 
 package action {
