@@ -31,6 +31,14 @@ class LogService extends Service {
         btLogfile.puts(device.toLog)
         sendToMain(device)
       }
+      override def onScanned(success: Boolean) = {
+        if (success) {
+          val btScanLog = EventLogProducer.getBtScanEventLog
+          btLogfile.puts(btScanLog)
+          btLogfile.flush
+          sendToMain(btScanLog, DeviceType.Bluetooth)
+        }
+      }
     }
 
     wfScanner = new WifiScanner(this) {
@@ -38,6 +46,14 @@ class LogService extends Service {
         Util.log(this, "WifiScanner " + device.toLog)
         wfLogfile.puts(device.toLog)
         sendToMain(device)
+      }
+      override def onScanned(success: Boolean) = {
+        if (success) {
+          val wfScanLog = EventLogProducer.getWfScanEventLog
+          wfLogfile.puts(wfScanLog)
+          wfLogfile.flush()
+          sendToMain(wfScanLog, DeviceType.WiFi)
+        }
       }
     }
 
@@ -49,18 +65,8 @@ class LogService extends Service {
 
     if (LogService.defaultAction == intent.getAction) {
       checkRotate()
-
-      val btScanLog = EventLogProducer.getBtScanEventLog
       btScanner.scan()
-      btLogfile.puts(btScanLog)
-      btLogfile.flush()
-      sendToMain(btScanLog, DeviceType.Bluetooth)
-
-      val wfScanLog = EventLogProducer.getWfScanEventLog
       wfScanner.scan()
-      wfLogfile.puts(wfScanLog)
-      wfLogfile.flush()
-      sendToMain(wfScanLog, DeviceType.WiFi)
     }
 
     return Service.START_STICKY;

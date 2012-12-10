@@ -9,6 +9,7 @@ trait ScannerTrait[T <: AnyDevice] {
   def init(): Unit = {}
   def scanAction(): Boolean
   def onDetected(device: T): Unit = Util.log(this, "ScanEventHandler:" + device.toString)
+  def onScanned(success: Boolean): Unit = Util.log(this, "ScanSuccess")
   def destroy(): Unit = {}
 
   // members
@@ -24,8 +25,13 @@ trait ScannerTrait[T <: AnyDevice] {
   def scanAndUpdate() = {
     new Thread(new Runnable() {
       override def run(): Unit = {
-        val scanned = scanAction()
-        if (scanned) lastScanned = new Date()
+        var scanned = false
+        try {
+          scanned = scanAction()
+          if (scanned) lastScanned = new Date()
+        } finally {
+          onScanned(scanned)
+        }
       }
     }).start()
   }
