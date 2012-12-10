@@ -21,6 +21,7 @@ class WifiScanner(context: Context) extends ScannerTrait[WifiDevice] {
       Util.log(this, "start wifi scan")
       wifi.startScan()
       val devices = wifi.getScanResults
+      onScanSuccess
       for (d <- devices) onDetected(new WifiDevice(d))
       return true
     }

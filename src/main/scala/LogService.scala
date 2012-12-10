@@ -31,13 +31,11 @@ class LogService extends Service {
         btLogfile.puts(device.toLog)
         sendToMain(device)
       }
-      override def onScanned(success: Boolean) = {
-        if (success) {
-          val btScanLog = EventLogProducer.getBtScanEventLog
-          btLogfile.puts(btScanLog)
-          btLogfile.flush
-          sendToMain(btScanLog, DeviceType.Bluetooth)
-        }
+      override def onScanSuccess = {
+        val btScanLog = EventLogProducer.getBtScanEventLog
+        btLogfile.puts(btScanLog)
+        btLogfile.flush
+        sendToMain(btScanLog, DeviceType.Bluetooth)
       }
     }
 
@@ -47,13 +45,11 @@ class LogService extends Service {
         wfLogfile.puts(device.toLog)
         sendToMain(device)
       }
-      override def onScanned(success: Boolean) = {
-        if (success) {
-          val wfScanLog = EventLogProducer.getWfScanEventLog
-          wfLogfile.puts(wfScanLog)
-          wfLogfile.flush()
-          sendToMain(wfScanLog, DeviceType.WiFi)
-        }
+      override def onScanSuccess = {
+        val wfScanLog = EventLogProducer.getWfScanEventLog
+        wfLogfile.puts(wfScanLog)
+        wfLogfile.flush()
+        sendToMain(wfScanLog, DeviceType.WiFi)
       }
     }
 

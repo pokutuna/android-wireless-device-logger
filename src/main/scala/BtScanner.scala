@@ -31,6 +31,7 @@ class BtScanner(context: Context) extends ScannerTrait[BtDevice] {
     if (bt.isEnabled && !bt.isDiscovering) {
       Util.log(this, "start bt scan")
       bt.startDiscovery()
+      onScanSuccess
       return true
     }
     return false
