@@ -5,7 +5,7 @@ import AndroidKeys._
 
 object General {
   val settings = Defaults.defaultSettings ++ Seq (
-    name := "logger",
+    name := "wd-logger",
     version := "0.0.3-android",
     versionCode := 3,
     scalaVersion := "2.9.2",
@@ -23,14 +23,14 @@ object General {
     proguardSettings ++
     AndroidManifestGenerator.settings ++
     AndroidMarketPublish.settings ++ Seq (
-      keyalias in Android := "n7logger",
+      keyalias in Android := "wd-logger",
       libraryDependencies += "org.scalatest" %% "scalatest" % "1.8" % "test"
     )
 }
 
 object AndroidBuild extends Build {
   lazy val main = Project (
-    "nexus7-wd-logger",
+    "wd-logger",
     file("."),
     settings = General.fullAndroidSettings
   )
@@ -41,7 +41,7 @@ object AndroidBuild extends Build {
     settings = General.settings ++
                AndroidTest.androidSettings ++
                General.proguardSettings ++ Seq (
-      name := "nexus7-wd-loggerTests"
+      name := "wd-loggerTests"
     )
   ) dependsOn main
 }
