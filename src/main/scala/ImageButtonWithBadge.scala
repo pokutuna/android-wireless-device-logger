@@ -1,4 +1,4 @@
-package com.pokutuna.n7logger.view
+package com.pokutuna.wdlogger.view
 
 import _root_.android.app._
 import _root_.android.content._

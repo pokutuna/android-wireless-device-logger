@@ -2,7 +2,7 @@
   <string name="yes">Yes</string>
   <string name="no">No</string>
 
-  <string name="app_name">nexus7-wd-logger</string>
+  <string name="app_name">wireless-device-logger</string>
   <string name="start">開始</string>
   <string name="stop">停止</string>
   <string name="sync">sync</string>

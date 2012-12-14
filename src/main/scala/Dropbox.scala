@@ -1,4 +1,4 @@
-package com.pokutuna.n7logger
+package com.pokutuna.wdlogger
 
 import _root_.android.os._
 import _root_.android.content._
@@ -7,7 +7,7 @@ import com.dropbox.client2.android._
 import com.dropbox.client2.session._
 import com.dropbox.client2.session.Session._
 import com.dropbox.client2.exception._
-import com.pokutuna.n7logger.action.LoggerAction
+import com.pokutuna.wdlogger.action.LoggerAction
 import java.io._
 import java.util._
 

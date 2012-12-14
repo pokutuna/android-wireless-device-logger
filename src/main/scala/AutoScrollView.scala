@@ -1,4 +1,4 @@
-package com.pokutuna.n7logger.view
+package com.pokutuna.wdlogger.view
 
 import _root_.android.app._
 import _root_.android.content._
@@ -21,7 +21,7 @@ class AutoScrollView(context: Context, attrs: AttributeSet)
  def isReachedBottom: Boolean = {
    if (getChildCount < 1) return false
    val diff = getChildAt(getChildCount - 1).getBottom - (getHeight + getScrollY)
-   com.pokutuna.n7logger.Util.log(this, diff.toString)
+   com.pokutuna.wdlogger.Util.log(this, diff.toString)
    return if (diff <= 0) true else false
  }
 
@@ -30,7 +30,7 @@ class AutoScrollView(context: Context, attrs: AttributeSet)
     try {
       func
     } finally {
-      com.pokutuna.n7logger.Util.log(this, reached.toString)
+      com.pokutuna.wdlogger.Util.log(this, reached.toString)
       if (isReachedBottom) scrollToBottom()
     }
     return reached

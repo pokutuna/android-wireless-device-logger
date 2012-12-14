@@ -1,6 +1,6 @@
-package com.pokutuna.n7logger
+package com.pokutuna.wdlogger
 
-import com.pokutuna.n7logger._
+import com.pokutuna.wdlogger._
 import _root_.android.app._
 import _root_.android.content._
 import _root_.android.content.res.Resources

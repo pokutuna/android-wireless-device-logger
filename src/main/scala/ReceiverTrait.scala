@@ -1,6 +1,6 @@
-package com.pokutuna.n7logger
+package com.pokutuna.wdlogger
 
-import com.pokutuna.n7logger.uri._
+import com.pokutuna.wdlogger.uri._
 import _root_.android.app._
 import _root_.android.content._
 import scala.collection.JavaConversions._

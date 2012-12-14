@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.pokutuna.n7logger">
+          package="com.pokutuna.wdlogger">
 
   <application
       android:name=".App"

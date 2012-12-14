@@ -22,13 +22,13 @@
         android:src="@drawable/paintroller"
         android:layout_weight="1"/>
 
-    <com.pokutuna.n7logger.view.ImageButtonWithBadge
+    <com.pokutuna.wdlogger.view.ImageButtonWithBadge
         android:id="@+id/btButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/bluetooth"
         android:layout_weight="1"/>
-    <com.pokutuna.n7logger.view.ImageButtonWithBadge
+    <com.pokutuna.wdlogger.view.ImageButtonWithBadge
         android:id="@+id/wifiButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 
   <include layout="@layout/divider" />
 
-  <com.pokutuna.n7logger.view.AutoScrollView
+  <com.pokutuna.wdlogger.view.AutoScrollView
       android:id="@+id/sysScroll"
       android:layout_width="fill_parent"
       android:layout_height="0dip"
@@ -65,7 +65,7 @@
             android:id="@+id/syslog"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
-  </com.pokutuna.n7logger.view.AutoScrollView>
+  </com.pokutuna.wdlogger.view.AutoScrollView>
   <!-- syslog end -->
 
   <!-- btlog start -->
@@ -91,7 +91,7 @@
 
   <include layout="@layout/divider" />
 
-  <com.pokutuna.n7logger.view.AutoScrollView
+  <com.pokutuna.wdlogger.view.AutoScrollView
       android:id="@+id/btScroll"
       android:layout_width="fill_parent"
       android:layout_height="0dip"
@@ -101,7 +101,7 @@
               android:id="@+id/btlog"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"/>
-  </com.pokutuna.n7logger.view.AutoScrollView>
+  </com.pokutuna.wdlogger.view.AutoScrollView>
   <!-- btlog end -->
 
   <!-- wifilog start -->
@@ -127,7 +127,7 @@
 
   <include layout="@layout/divider" />
 
-  <com.pokutuna.n7logger.view.AutoScrollView
+  <com.pokutuna.wdlogger.view.AutoScrollView
       android:id="@+id/wfScroll"
       android:layout_width="fill_parent"
       android:layout_height="0dip"
@@ -137,7 +137,7 @@
               android:id="@+id/wflog"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"/>
-  </com.pokutuna.n7logger.view.AutoScrollView>
+  </com.pokutuna.wdlogger.view.AutoScrollView>
   <!-- wifilog end -->
 
 </LinearLayout>

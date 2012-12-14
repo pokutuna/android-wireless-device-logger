@@ -1,11 +1,11 @@
-package com.pokutuna.n7logger
+package com.pokutuna.wdlogger
 
 object Logger {
   import _root_.android.content.pm._
 
-  val packageName = "com.pokutuna.n7logger"
+  val packageName = "com.pokutuna.wdlogger"
 
-  val logTag = "N7Logger"
+  val logTag = "Wdlogger"
 
   lazy val packageManager = App.getContext.getPackageManager
 
@@ -34,7 +34,7 @@ package uri {
   import _root_.android.net.Uri
 
   object LoggerUri {
-    val schema = "n7logger://"
+    val schema = "wdlogger://"
     def get(str: String): Uri = Uri.parse(schema + str)
   }
 }

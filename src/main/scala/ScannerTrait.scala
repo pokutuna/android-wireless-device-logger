@@ -1,4 +1,4 @@
-package com.pokutuna.n7logger
+package com.pokutuna.wdlogger
 
 import java.util.Date
 

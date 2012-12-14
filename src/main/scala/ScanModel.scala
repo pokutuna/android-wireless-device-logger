@@ -1,4 +1,4 @@
-package com.pokutuna.n7logger
+package com.pokutuna.wdlogger
 
 import _root_.android.content.Intent
 import _root_.android.bluetooth.BluetoothDevice
