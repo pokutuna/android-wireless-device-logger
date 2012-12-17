@@ -6,8 +6,8 @@ import AndroidKeys._
 object General {
   val settings = Defaults.defaultSettings ++ Seq (
     name := "wd-logger",
-    version := "0.0.3-android",
-    versionCode := 3,
+    version := "0.0.4-android",
+    versionCode := 4,
     scalaVersion := "2.9.2",
     platformName in Android := "android-14"
   )
