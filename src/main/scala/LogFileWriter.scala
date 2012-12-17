@@ -16,10 +16,12 @@ object LogFileWriter {
     Util.getString(R.string.rootDirName)
   )
   lazy val bt = BluetoothAdapter.getDefaultAdapter
-  lazy val deviceName: String = bt.getName
-  lazy val deviceAddress: String = bt.getAddress
-  lazy val dirParentDates: File =
+
+  def dirParentDates: File = {
+    val deviceName: String = bt.getName
+    val deviceAddress: String = bt.getAddress
     joinPath(logRoot, deviceName, deviceAddress.replaceAll(":", ""))
+  }
 
   def joinPath(root: File, dirs: String*): File = {
     new File(root, dirs.mkString(File.separator))
@@ -59,7 +61,7 @@ class LogFileWriter(deviceType: DeviceType.Value, day: String = LogFileWriter.to
 
   def init() = synchronized {
     puts(EventLogProducer.getLoggerVersionLog)
-    puts(EventLogProducer.getLoggerBDALog(LogFileWriter.deviceAddress))
+    puts(EventLogProducer.getLoggerBDALog(LogFileWriter.bt.getAddress))
   }
 
   def puts(log: String) = synchronized {

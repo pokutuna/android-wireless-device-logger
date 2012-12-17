@@ -11,6 +11,7 @@ import _root_.android.os._
 import _root_.android.util.Log
 import _root_.android.net.Uri
 import _root_.android.webkit.WebView
+import _root_.android.bluetooth.BluetoothAdapter
 import java.lang.System
 
 class MainActivity extends Activity with TypedActivity with OnClickListener {
@@ -95,6 +96,7 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     LogService.start(this)
     logToggle.setImageResource(R.drawable.stop)
     logToggle.getBackground.setColorFilter(Color.BLUE, PorterDuff.Mode.DARKEN);
+    updateTitleStatus("Logging")
   }
 
   def stopLogging() {
@@ -102,6 +104,7 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     LogService.stop(this)
     logToggle.setImageResource(R.drawable.play)
     logToggle.getBackground.setColorFilter(null);
+    updateTitleStatus("Stop")
   }
 
   def clearLog() {
@@ -148,6 +151,18 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     Dropbox.getDropboxToken match {
       case Some(token) => Dropbox.startSync()
       case None => Dropbox.Api.getSession().startAuthentication(MainActivity.this);
+    }
+  }
+
+  def updateTitleStatus(status: String) = {
+    setTitle(deviceName + " - " + status)
+  }
+
+  def deviceName: String = {
+    try {
+      BluetoothAdapter.getDefaultAdapter.getName
+    } catch {
+      case _ => "ERROR"
     }
   }
 
