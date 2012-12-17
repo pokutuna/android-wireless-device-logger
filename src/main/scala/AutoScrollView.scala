@@ -21,7 +21,6 @@ class AutoScrollView(context: Context, attrs: AttributeSet)
  def isReachedBottom: Boolean = {
    if (getChildCount < 1) return false
    val diff = getChildAt(getChildCount - 1).getBottom - (getHeight + getScrollY)
-   com.pokutuna.wdlogger.Util.log(this, diff.toString)
    return if (diff <= 0) true else false
  }
 
@@ -30,7 +29,6 @@ class AutoScrollView(context: Context, attrs: AttributeSet)
     try {
       func
     } finally {
-      com.pokutuna.wdlogger.Util.log(this, reached.toString)
       if (isReachedBottom) scrollToBottom()
     }
     return reached

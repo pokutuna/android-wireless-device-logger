@@ -33,7 +33,7 @@
   <string name="checkWfNotEnabled">WifiがOFFになっているようです。\nONでないとスキャンできません。設定を開きますか？</string>
 
 
-  <string name="info">app info</string>
+  <string name="info">Info</string>
   <string name="infoHtml"><![CDATA[
     <html lang="ja">
       <body>
@@ -49,6 +49,7 @@
     </html>
   ]]></string>
 
-  <string name="deauthorize">deauthorize Dropbox</string>
+  <string name="deauthorize">Deauthorize Dropbox</string>
   <string name="deauthorizeComplete">Dropboxへのアクセス権限を削除しました。</string>
+  <string name="exit">Exit</string>
 </resources>

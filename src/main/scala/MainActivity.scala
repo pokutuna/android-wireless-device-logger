@@ -28,6 +28,7 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
   lazy val btScl  = findView(TR.btScroll)
   lazy val wflog  = findView(TR.wflog)
   lazy val wfScl  = findView(TR.wfScroll)
+
   lazy val btfileBtn = findView(TR.openBtLogFile)
   lazy val wffileBtn = findView(TR.openWfLogFile)
 
@@ -150,6 +151,12 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
     }
   }
 
+  def exitApp() {
+    stopLogging()
+    finish()
+    moveTaskToBack(true)
+  }
+
   def openBtLogFileIntent() = {
     openFileIntent(LogFileWriter.getLogPath(LogFileWriter.today, DeviceType.Bluetooth).getAbsolutePath)
   }
@@ -243,14 +250,15 @@ class MainActivity extends Activity with TypedActivity with OnClickListener {
 
   // menu
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
-    menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.info))
-    menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.deauthorize))
+    val inflater = getMenuInflater
+    inflater.inflate(R.layout.menu, menu)
     super.onCreateOptionsMenu(menu)
   }
 
   override def onOptionsItemSelected(item: MenuItem): Boolean = item.getItemId match {
-    case id if id == 1 => openInfoDialog(); true
-    case id if id == 2 => deauthorizeDropbox(); true
+    case id if id == R.id.appInfo     => openInfoDialog(); true
+    case id if id == R.id.deauthorize => deauthorizeDropbox(); true
+    case id if id == R.id.exit        => exitApp(); true
     case _ => false
   }
 
