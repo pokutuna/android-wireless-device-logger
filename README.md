@@ -7,7 +7,7 @@ http://pokutuna.github.com/android-wireless-device-logger/
 
 https://github.com/pokutuna/android-wireless-device-logger/tree/master/build
 
-click `Raw` link
+open `wd-logger-VERSION.apk` link and click `Raw` button to download.
 
 
 
